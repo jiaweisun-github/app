@@ -1,0 +1,7 @@
+com/service/BaseService.class
+com/example/CORSFilter.class
+com/example/Application.class
+com/service/PersonService.class
+com/controller/PersonController.class
+com/repository/PersonRepository.class
+com/entities/Person.class
