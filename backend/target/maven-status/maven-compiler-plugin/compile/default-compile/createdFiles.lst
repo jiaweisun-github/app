@@ -1,9 +1,0 @@
-com/service/BaseService.class
-com/example/CORSFilter.class
-com/example/controller/CheckoutController.class
-com/example/controller/PersonController.class
-com/example/Application.class
-com/service/PersonService.class
-com/example/controller/BasePathController.class
-com/repository/PersonRepository.class
-com/entities/Person.class
