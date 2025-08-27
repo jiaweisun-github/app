@@ -16,7 +16,7 @@ public class Application {
         ServletHolder jerseyServlet = context.addServlet(ServletContainer.class, "/*");
         jerseyServlet.setInitParameter(
                 "jersey.config.server.provider.packages",
-                "com.example"  // scans controllers + filters
+                "com.example.controller"  // scans controllers + filters
         );
 
         server.setHandler(context);

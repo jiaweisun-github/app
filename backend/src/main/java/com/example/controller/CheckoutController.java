@@ -31,16 +31,32 @@ public class CheckoutController {
     public Response createCheckoutSession() {
         try {
             SessionCreateParams params = SessionCreateParams.builder()
-                    .addLineItem(
-                        SessionCreateParams.LineItem.builder()
-                            .setPrice("price_1RzTq7CZBbVVNCzDde2Gr6r6") // Replace with a test price from Stripe Dashboard
-                            .setQuantity(1L)
-                            .build()
-                    )
-                    .setMode(SessionCreateParams.Mode.PAYMENT)
-                    .setSuccessUrl("http://localhost:3000/success")
-                    .setCancelUrl("http://localhost:3000/cancel")
-                    .build();
+                .addLineItem(
+                    SessionCreateParams.LineItem.builder()
+                        .setPrice("price_1RzTq7CZBbVVNCzDde2Gr6r6") // Replace with a test price from Stripe Dashboard
+                        .setQuantity(1L)
+                        .build())
+                .setShippingAddressCollection(
+                    SessionCreateParams.ShippingAddressCollection.builder()
+                        .addAllowedCountry(SessionCreateParams.ShippingAddressCollection.AllowedCountry.US)
+                        .addAllowedCountry(SessionCreateParams.ShippingAddressCollection.AllowedCountry.CA)
+                        .build())
+                .addShippingOption(
+                    SessionCreateParams.ShippingOption.builder()
+                        .setShippingRate("shr_1RzjTSCZBbVVNCzDGmi2GCnI")
+                        .build())
+                .addShippingOption(
+                    SessionCreateParams.ShippingOption.builder()
+                        .setShippingRate("shr_1RzjTzCZBbVVNCzD1XCmfebO")
+                        .build())
+                .addShippingOption(
+                    SessionCreateParams.ShippingOption.builder()
+                        .setShippingRate("shr_1RzjWICZBbVVNCzDdLf8PnwU")
+                        .build())
+                .setMode(SessionCreateParams.Mode.PAYMENT)
+                .setSuccessUrl("http://localhost:3000/success")
+                .setCancelUrl("http://localhost:3000/cancel")
+                .build();
 
             Session session = Session.create(params);
 

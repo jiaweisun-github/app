@@ -3,17 +3,14 @@ package com.example.controller;
 import com.entities.Person;
 import com.service.PersonService;
 
-import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/jakarta")
+@Path("/person")
 public class PersonController {
 
-    private final PersonService personService = new PersonService();
+    private PersonService personService = new PersonService();
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -33,5 +30,12 @@ public class PersonController {
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+    }
+
+    @GET
+    @Path("/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllPersons() {
+        return Response.ok(personService.findAllPersons()).build();
     }
 }

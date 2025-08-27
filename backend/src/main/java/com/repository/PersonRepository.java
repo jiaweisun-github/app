@@ -24,6 +24,12 @@ public class PersonRepository {
         return em.find(Person.class, id);
     }
 
+    public List<Person> findAll(){
+        return em.createQuery(
+            "SELECT p FROM Person p", Person.class)
+            .getResultList();
+    }
+
     public List<Person> findByName(String name) {
         return em.createQuery(
             "SELECT p FROM Person p WHERE p.name = :name", Person.class)

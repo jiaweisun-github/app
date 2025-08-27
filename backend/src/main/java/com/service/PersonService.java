@@ -1,4 +1,6 @@
 package com.service;
+import java.util.List;
+
 import com.entities.Person;
 import com.repository.PersonRepository;
 
@@ -19,5 +21,13 @@ public class PersonService extends BaseService {
         Person person = repo.findById(id);
         em.close();
         return person;
+    }
+
+    public List<Person> findAllPersons() {
+        EntityManager em = getEntityManager();
+        PersonRepository repo = new PersonRepository(em);
+        List<Person> persons = repo.findAll();
+        em.close();
+        return persons;
     }
 }
