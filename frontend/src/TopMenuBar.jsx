@@ -1,10 +1,11 @@
 // TopMenuBar.jsx
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Group, Button, Text, MantineProvider, Container} from '@mantine/core';
 
-export default function TopMenuBar() {
+const TopMenuBar = () => {
+  const navigate = useNavigate();
+
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
       <Container size="xl" py="md">
         <Box
             sx={{
@@ -19,13 +20,12 @@ export default function TopMenuBar() {
             }}
           >
             <Group spacing="md">
-              <Button variant="filled" color="blue">Home</Button>
-              <Button variant="filled" color="blue">Products</Button>
-              <Button variant="filled" color="blue">About</Button>
-              <Button variant="filled" color="blue">Contact</Button>
+              <Button variant="filled" color="blue" onClick={() => navigate('/')}>Home</Button>
+              <Button variant="filled" color="blue" onClick={() => navigate('/products')}>Products</Button>
             </Group>
           </Box>
       </Container>
-      </MantineProvider>
   );
 }
+
+export default TopMenuBar;

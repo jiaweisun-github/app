@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -7,23 +8,21 @@ import jakarta.ws.rs.core.Response;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.example.EnvUtil;
 import com.stripe.Stripe;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 
-import io.github.cdimascio.dotenv.Dotenv;
-
 @Path("/checkout")
 public class CheckoutController {
 
+    @Inject
+    EnvUtil envUtil;
+
     public CheckoutController() {
         // safely load Stripe secret key at runtime
-        String key = System.getenv("STRIPE_SECRET_KEY");
-        if (key == null) {
-            // fallback to dotenv if needed
-            key = Dotenv.load().get("STRIPE_SECRET_KEY");
-        }
-        Stripe.apiKey = key;
+        String key = envUtil.getStripePrivateKey();
+        Stripe.apiKey = key == null ? key : "";
     }
 
     @POST
