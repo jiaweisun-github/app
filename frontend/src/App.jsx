@@ -34,7 +34,7 @@ const App = () => {
             <div>
                 <h1>My Stripe Checkout Demo</h1>
                 <Routes>
-                    <Route path="/" element={<CheckoutButton stripePromise={stripePromise} />} />
+                    <Route path="/checkout" element={<CheckoutButton stripePromise={stripePromise} />} />
                     <Route path="/products" element={<ProductsGrid />} />
                     <Route path="/success" element={<Success />} />
                     <Route path="/cancel" element={<Cancel />} />

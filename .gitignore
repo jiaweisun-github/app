@@ -1,4 +1,6 @@
 /frontend/node_modules/
 *.p12
 /backend/target/
-/backend/.env
+.env
+/frontend/package-lock.json
+h2-2.2.224.jar
