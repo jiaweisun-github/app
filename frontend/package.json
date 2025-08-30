@@ -9,7 +9,9 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
     "@mantine/core": "^8.2.7",
+    "@mantine/hooks": "^8.2.7",
     "@stripe/stripe-js": "^7.8.0",
     "axios": "^1.11.0",
     "react": "^18.2.0",
