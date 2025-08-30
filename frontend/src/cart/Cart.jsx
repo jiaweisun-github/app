@@ -1,12 +1,20 @@
 import { useState } from "react";
-import { Card, Text, Button, Stack } from "@mantine/core";
+import { Card, Text, Button, Stack, Group } from "@mantine/core";
 import { useCart } from "./CartContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
-  const { cart, removeFromCart } = useCart();
+  const { cart, removeFromCart, updateQuantity } = useCart();
   const [open, setOpen] = useState(true);
   const navigate = useNavigate();
+
+  // New function to empty the cart
+  const emptyCart = () => {
+    cart.forEach(item => removeFromCart(item.id));
+  };
+
+  // Calculate total price
+  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
     <div
@@ -41,6 +49,7 @@ export default function Cart() {
       {open && (
         <>
           <Text fw={700} size="lg" mb="md">Cart</Text>
+          
           <Stack>
             {cart.length === 0 ? (
               <Text c="dimmed">Your cart is empty.</Text>
@@ -49,18 +58,35 @@ export default function Cart() {
                 <Card key={item.id} shadow="sm" padding="sm" radius="md" withBorder>
                   <Text fw={500}>{item.name}</Text>
                   <Text c="dimmed">${item.price} x {item.quantity}</Text>
-                  <Button mt="sm" color="red" size="xs" onClick={() => removeFromCart(item.id)}>
-                    Remove
-                  </Button>
+                  <Group mt="sm">
+                    <Button size="xs" onClick={() => updateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>-</Button>
+                    <Text>{item.quantity}</Text>
+                    <Button size="xs" onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</Button>
+                    <Button color="red" size="xs" onClick={() => removeFromCart(item.id)}>
+                      Remove
+                    </Button>
+                  </Group>
                 </Card>
               ))
             )}
+
+            {cart.length > 0 && (
+            <>
+              <Text fw={700} size="md" mt="md" align="right">
+                Total: ${totalPrice.toFixed(2)}
+              </Text>
+              <Group mt="sm" grow>
+                  <Button mt="sm" fullWidth color="red" onClick={emptyCart} >
+                      Empty Cart
+                  </Button>
+                  <Button mt="lg" fullWidth color="green" onClick={() => navigate('/checkout', { state: { cart } })}>
+                    Checkout
+                  </Button>
+              </Group>
+            </>
+            )}
           </Stack>
-          {cart.length > 0 && (
-            <Button mt="lg" fullWidth color="green" onClick={() => navigate('/checkout', { state: { cart } })}>
-              Checkout
-            </Button>
-          )}
+          
         </>
       )}
     </div>
